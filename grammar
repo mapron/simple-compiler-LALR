@@ -1,0 +1,160 @@
+programm
+	statement-seq
+
+statement-seq
+	statement
+	statement-seq statement
+
+statement
+	expression-statement
+	compound-statement
+	selection-statement
+	iteration-statement
+	declaration-statement
+	print-statement
+	prints-statement
+	scan-statement
+	wait-statement
+
+expression-statement
+	expression TOKEN_SEMICOLON
+
+compound-statement
+	TOKEN_OPERATOR_SKOBKA_F_L statement-seq TOKEN_OPERATOR_SKOBKA_F_R
+
+selection-statement
+	if-statement
+	ifelse-statement
+
+if-statement
+	TOKEN_KEYWORD_IF pcondition statement
+
+ifelse-statement
+        if-statement TOKEN_KEYWORD_ELSE statement
+
+pcondition
+	TOKEN_OPERATOR_SKOBKA_R_L condition TOKEN_OPERATOR_SKOBKA_R_R
+
+condition
+	expression
+
+iteration-statement
+	TOKEN_KEYWORD_WHILE pcondition statement
+
+print-statement 1
+	TOKEN_KEYWORD_PRINT TOKEN_OPERATOR_SKOBKA_R_L TOKEN_IDENT TOKEN_OPERATOR_SKOBKA_R_R TOKEN_SEMICOLON
+
+prints-statement 2
+	TOKEN_KEYWORD_PRINTS TOKEN_OPERATOR_SKOBKA_R_L TOKEN_STRING TOKEN_OPERATOR_SKOBKA_R_R TOKEN_SEMICOLON
+
+scan-statement 3
+	TOKEN_KEYWORD_SCAN TOKEN_OPERATOR_SKOBKA_R_L TOKEN_IDENT TOKEN_OPERATOR_SKOBKA_R_R TOKEN_SEMICOLON
+
+wait-statement 4
+	TOKEN_KEYWORD_WAIT TOKEN_SEMICOLON
+
+literal
+	TOKEN_NUMBER
+
+primary-expression
+	literal
+	TOKEN_OPERATOR_SKOBKA_R_L expression TOKEN_OPERATOR_SKOBKA_R_R
+	TOKEN_IDENT
+
+postfix-expression
+	primary-expression
+	postfix-expression TOKEN_OPERATOR_SKOBKA_K_L expression TOKEN_OPERATOR_SKOBKA_K_R
+	postfix-expression TOKEN_OPERATOR_SKOBKA_R_L expression-list TOKEN_OPERATOR_SKOBKA_R_R
+	postfix-expression TOKEN_OPERATOR_INCREMENT
+	postfix-expression TOKEN_OPERATOR_DECREMENT
+              
+expression-list
+	assignment-expression
+	expression-list TOKEN_OPERATOR_COMMA assignment-expression
+
+unary-expression
+	postfix-expression
+	TOKEN_OPERATOR_INCREMENT unary-expression
+	TOKEN_OPERATOR_DECREMENT unary-expression
+	unary-operator unary-expression
+              
+unary-operator 9
+	TOKEN_OPERATOR_PLUS
+	TOKEN_OPERATOR_MINUS
+	TOKEN_OPERATOR_EXCLAMATION
+
+multiplicative-expression 8
+	unary-expression
+	multiplicative-expression TOKEN_OPERATOR_MULT unary-expression
+	multiplicative-expression TOKEN_OPERATOR_DIVIDE unary-expression
+	multiplicative-expression TOKEN_OPERATOR_REMAIN unary-expression
+
+additive-expression 7 
+	multiplicative-expression
+	additive-expression TOKEN_OPERATOR_PLUS multiplicative-expression
+	additive-expression TOKEN_OPERATOR_MINUS multiplicative-expression
+
+
+shift-expression
+	additive-expression
+	shift-expression TOKEN_OPERATOR_SHIFTLEFT additive-expression
+	shift-expression TOKEN_OPERATOR_SHIFTRIGHT additive-expression
+
+relational-expression
+	shift-expression
+	relational-expression TOKEN_OPERATOR_LOWER shift-expression
+	relational-expression TOKEN_OPERATOR_GREATER shift-expression
+	relational-expression TOKEN_OPERATOR_LOWEREQUAL shift-expression
+	relational-expression TOKEN_OPERATOR_GREATEREQUAL shift-expression
+
+equality-expression
+	relational-expression
+	equality-expression TOKEN_OPERATOR_EQUAL relational-expression
+	equality-expression TOKEN_OPERATOR_NOTEQUAL relational-expression
+
+and-expression
+	equality-expression
+	and-expression TOKEN_OPERATOR_AND equality-expression
+
+exclusive-or-expression
+	and-expression
+	exclusive-or-expression TOKEN_OPERATOR_XOR and-expression
+
+inclusive-or-expression
+	exclusive-or-expression
+	inclusive-or-expression TOKEN_OPERATOR_OR exclusive-or-expression
+
+logical-and-expression
+	inclusive-or-expression
+	logical-and-expression TOKEN_OPERATOR_AND_LOGICAL inclusive-or-expression
+
+logical-or-expression
+	logical-and-expression
+	logical-or-expression TOKEN_OPERATOR_OR_LOGICAL logical-and-expression
+
+assignment-expression 5
+	TOKEN_IDENT assignment-operator logical-or-expression
+  
+assignment-operator
+	TOKEN_OPERATOR_ASSIGN
+	TOKEN_OPERATOR_ASSIGN_ADD
+      
+expression
+	assignment-expression
+	expression TOKEN_OPERATOR_COMMA assignment-expression
+
+declaration-statement 6
+	simple-type-specifier declarator-list TOKEN_SEMICOLON
+
+declarator-list
+	declarator
+	declarator-list TOKEN_OPERATOR_COMMA declarator
+
+declarator
+	TOKEN_IDENT
+
+simple-type-specifier
+	TOKEN_TYPE_INT
+	TOKEN_TYPE_FLOAT
+
+

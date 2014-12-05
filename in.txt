@@ -1,0 +1,10 @@
+int a,b;
+prints("Hello, World!");
+a=5;
+b=11;
+a=a+b;
+print(a);
+/*scan(b);
+a=b*a;
+print(a);*/
+wait;
